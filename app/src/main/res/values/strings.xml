@@ -2,8 +2,11 @@
 <resources>
 
     <string name="app_name">Project Tracker</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="projects">Projects</string>
-    <string name="completed_projects">Completed Projects</string>
+    <string name="completed_projects">Upcoming Deadlines</string>
+    <string name="project_title_label">Title</string>
+    <string name="project_title">Enter a project title</string>
+    <string name="project_details_label">Details</string>
+    <string name="project_completed_label">Completed?</string>
 </resources>
