@@ -8,5 +8,13 @@
     <string name="project_title_label">Title</string>
     <string name="project_title">Enter a project title</string>
     <string name="project_details_label">Details</string>
-    <string name="project_completed_label">Completed?</string>
+    <string name="project_completed_label">Completed</string>
+    <string name="task_title">Enter a task title</string>
+    <string name="task_description">Description</string>
+    <string name="task_description_hint">Enter a description of the task</string>
+    <string name="task_estimated_time">Estimate Time</string>
+    <string name="task_log_time">Log Time</string>
+    <string name="task_progress">Progress</string>
+    <string name="task_due_date">Due Date</string>
+    <string name="task_submit">Submit</string>
 </resources>

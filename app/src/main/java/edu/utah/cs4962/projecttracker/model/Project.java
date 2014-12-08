@@ -4,6 +4,7 @@ package edu.utah.cs4962.projecttracker.model;
 import android.graphics.Color;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 public class Project {
@@ -12,6 +13,7 @@ public class Project {
     private Priority mPriority;
     private boolean mCompleted;
     private String mTitle;
+    private Date mDueDate;
     private final static int HIGH_PRIORITY_COLOR = Color.rgb(255,0,0);
     private final static int MEDIUM_PRIORITY_COLOR = Color.rgb(255, 94, 0);
     private final static int LOW_PRIORITY_COLOR = Color.rgb(51, 255, 51);
@@ -26,6 +28,7 @@ public class Project {
         mId = UUID.randomUUID();
         mTasks = new ArrayList<Task>();
         mCompleted = false;
+        mDueDate = null;
     }
 
     public Project(String title, Priority priority)
@@ -35,6 +38,17 @@ public class Project {
         mCompleted = false;
         mPriority = priority;
         mTitle = title;
+        mDueDate = null;
+    }
+
+    public Project(String title, Priority priority, Date dueDate)
+    {
+        mId = UUID.randomUUID();
+        mTasks = new ArrayList<Task>();
+        mCompleted = false;
+        mPriority = priority;
+        mTitle = title;
+        mDueDate = dueDate;
     }
 
     public Project(String title, Priority priority, ArrayList<Task> tasks)
@@ -44,6 +58,17 @@ public class Project {
         mCompleted = false;
         mPriority = priority;
         mTitle = title;
+        mDueDate = null;
+    }
+
+    public Project(String title, Priority priority, ArrayList<Task> tasks, Date dueDate)
+    {
+        mId = UUID.randomUUID();
+        mTasks = tasks;
+        mCompleted = false;
+        mPriority = priority;
+        mTitle = title;
+        mDueDate = dueDate;
     }
 
     public UUID getId()
@@ -87,6 +112,16 @@ public class Project {
     public void addTask(Task task)
     {
         mTasks.add(task);
+    }
+
+    public Date getDueDate()
+    {
+        return mDueDate;
+    }
+
+    public void setDueDate(Date date)
+    {
+        mDueDate = date;
     }
 
     public int getPriorityColor()

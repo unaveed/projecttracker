@@ -3,6 +3,7 @@ package edu.utah.cs4962.projecttracker.model;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -30,11 +31,11 @@ public class ProjectManger
         {
             Project p;
             if(i % 3 == 0)
-                p = new Project("Project" + i, Project.Priority.High);
+                p = new Project("Project" + i, Project.Priority.High, new Date(114, i, (i+1) * 2));
             else if (i % 2 == 0)
-                p = new Project("My project" + i, Project.Priority.Medium);
+                p = new Project("My project" + i, Project.Priority.Medium, new Date(114, i, (i+1) * 2));
             else
-                p = new Project("CS 4962 project - " + i, Project.Priority.Low);
+                p = new Project("CS 4962 project - " + i, Project.Priority.Low, new Date(114, i, (i+1) * 2));
 
             mProjects.add(p);
         }

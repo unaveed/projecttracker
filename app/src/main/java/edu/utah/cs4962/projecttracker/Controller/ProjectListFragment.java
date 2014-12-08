@@ -1,17 +1,17 @@
 package edu.utah.cs4962.projecttracker.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import edu.utah.cs4962.projecttracker.ProjectActivity;
 import edu.utah.cs4962.projecttracker.R;
 import edu.utah.cs4962.projecttracker.model.Project;
 import edu.utah.cs4962.projecttracker.model.ProjectManger;
@@ -37,8 +37,13 @@ public class ProjectListFragment extends ListFragment
     @Override
     public void onListItemClick(ListView l, View v, int position, long id)
     {
+        // Get the project from the adapter
         Project project = ((ProjectAdapter)getListAdapter()).getItem(position);
-        Log.d(TAG, project.getTitle() + " was clicked");
+//        Log.d(TAG, project.getTitle() + " was clicked");
+
+        // Start ProjectActivity
+        Intent intent = new Intent(getActivity(), ProjectActivity.class);
+        startActivity(intent);
     }
 
     private class ProjectAdapter extends ArrayAdapter<Project>
@@ -63,11 +68,7 @@ public class ProjectListFragment extends ListFragment
 
             TextView dateTextView =
                     (TextView) convertView.findViewById(R.id.project_list_item_dateTextView);
-            dateTextView.setText(project.getId().toString());
-
-            CheckBox completedCheckBox =
-                    (CheckBox) convertView.findViewById(R.id.project_list_item_completedCheckBox);
-            completedCheckBox.setChecked(project.isCompleted());
+            dateTextView.setText(project.getDueDate().toString());
 
             View priorityView =
                     (View) convertView.findViewById(R.id.project_list_item_statusIndicator);

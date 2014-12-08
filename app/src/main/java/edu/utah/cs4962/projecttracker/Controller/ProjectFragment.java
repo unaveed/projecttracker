@@ -35,7 +35,7 @@ public class ProjectFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_project, parent, false);
 
-        mTitleField = (EditText)v.findViewById(R.id.crime_title);
+        mTitleField = (EditText)v.findViewById(R.id.log_time_input);
         mTitleField.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence c, int start, int before, int count) {
                 mProject.setTitle(c.toString());
@@ -48,11 +48,11 @@ public class ProjectFragment extends Fragment
             }
         });
 
-        mDateButton = (Button)v.findViewById(R.id.crime_date);
+        mDateButton = (Button)v.findViewById(R.id.submit_button);
         mDateButton.setText(mProject.getId().toString());
         mDateButton.setEnabled(false);
 
-        mCompletedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
+        mCompletedCheckBox = (CheckBox)v.findViewById(R.id.project_solved);
         mCompletedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)

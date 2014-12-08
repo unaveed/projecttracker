@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/project_title_label"
+            android:fontFamily="Sans-serif light"
+            android:textSize="30sp"
+            android:layout_marginLeft="16dp"
+            />
+        <EditText android:id="@+id/task_title"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="16dp"
+                  android:layout_marginRight="16dp"
+                  android:hint="@string/task_title"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/task_description"
+            android:fontFamily="Sans-serif light"
+            android:textSize="30sp"
+            android:layout_marginLeft="16dp"/>
+        <EditText
+            android:id="@+id/task_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="@string/task_description_hint"/>
+        <LinearLayout
+            android:id="@+id/time_label_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginLeft="16dp"
+                android:text="@string/task_estimated_time"
+                android:fontFamily="Sans-serif light"
+                android:textSize="30sp"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginRight="16dp"
+                android:text="@string/task_log_time"
+                android:fontFamily="Sans-serif light"
+                android:textSize="30sp"
+                android:gravity="end"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/time_input_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/estimate_time_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginLeft="16dp"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"/>
+            <EditText
+                android:id="@+id/log_time_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_marginRight="16dp"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_progress"
+            android:fontFamily="Sans-serif light"
+            android:textSize="30sp"
+            android:layout_marginLeft="16dp"/>
+        <Spinner
+            android:id="@+id/progress_select_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+        </Spinner>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_due_date"
+            android:fontFamily="Sans-serif light"
+            android:textSize="30sp"
+            android:layout_marginLeft="16dp"/>
+        <DatePicker
+            android:id="@+id/due_date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_submit"
+            android:fontFamily="Sans-serif light"
+            android:textSize="30sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</ScrollView>
