@@ -182,6 +182,11 @@ public class SubTask implements Parcelable
         return mTitle;
     }
 
+    public String getDescription()
+    {
+        return mDescription;
+    }
+
     public Date getDueDate()
     {
         return mDueDate;
