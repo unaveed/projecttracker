@@ -36,7 +36,7 @@ public class SubTask implements Parcelable
         parcel.writeString(mProgress.toString());
     }
 
-    enum Progress
+    public enum Progress
     {
         TODO, InProgress, Completed
     }
@@ -185,6 +185,11 @@ public class SubTask implements Parcelable
     public Date getDueDate()
     {
         return mDueDate;
+    }
+
+    public Progress getProgress()
+    {
+        return mProgress;
     }
 }
 
