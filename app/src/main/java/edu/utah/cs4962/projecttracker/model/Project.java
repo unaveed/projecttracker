@@ -31,8 +31,8 @@ public class Project implements Parcelable {
     public Project()
     {
         mIndex = 0;
-        mTasks = new ArrayList<>();
-        mSubTaskLookupMap = new HashMap<>();
+        mTasks = new ArrayList<SubTask>();
+        mSubTaskLookupMap = new HashMap<UUID, Integer>();
         mCompleted = false;
         mDueDate = null;
     }
@@ -65,7 +65,7 @@ public class Project implements Parcelable {
             String title = source.readString();
             Priority priority = parsePriority(source.readString());
             Date date = (Date) source.readValue(Project.class.getClassLoader());
-            boolean completed = (boolean) source.readValue(Project.class.getClassLoader());
+            boolean completed = (Boolean) source.readValue(Project.class.getClassLoader());
             Bundle bundle = source.readBundle(SubTask.class.getClassLoader());
             ArrayList<SubTask> tasks = bundle.getParcelableArrayList("tasks");
             int index = source.readInt();
@@ -89,16 +89,16 @@ public class Project implements Parcelable {
     public Project(String title)
     {
         mTitle = title;
-        mTasks = new ArrayList<>();
-        mSubTaskLookupMap = new HashMap<>();
+        mTasks = new ArrayList<SubTask>();
+        mSubTaskLookupMap = new HashMap<UUID, Integer>();
         mCompleted = false;
         mDueDate = null;
     }
 
     public Project(String title, Priority priority)
     {
-        mTasks = new ArrayList<>();
-        mSubTaskLookupMap = new HashMap<>();
+        mTasks = new ArrayList<SubTask>();
+        mSubTaskLookupMap = new HashMap<UUID, Integer>();
         mCompleted = false;
         mPriority = priority;
         mTitle = title;
@@ -107,8 +107,8 @@ public class Project implements Parcelable {
 
     public Project(String title, Priority priority, Date dueDate)
     {
-        mTasks = new ArrayList<>();
-        mSubTaskLookupMap = new HashMap<>();
+        mTasks = new ArrayList<SubTask>();
+        mSubTaskLookupMap = new HashMap<UUID, Integer>();
         mCompleted = false;
         mPriority = priority;
         mTitle = title;

@@ -2,7 +2,6 @@ package controller;
 
 import android.app.Activity;
 
-
-public class AddProjectActivity extends Activity
+public class DisplayMessageActivity extends Activity
 {
 }

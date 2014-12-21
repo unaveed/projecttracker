@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:background="@color/list_background_color">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <!--  this list contains products -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/projects"
+            android:fontFamily="sans-serif-light"
+            android:textSize="25sp"
+            android:layout_marginTop="5dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:textColor="#000000"/>
+        <ListView
+            android:id="@+id/list1"
+            android:background="@color/alt_background_color"
+            android:cacheColorHint="#00000000"
+            android:soundEffectsEnabled="true"
+            android:dividerHeight="1px"
+            android:padding="0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="false"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/empty_list_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_list"
+            android:layout_marginTop="5dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:gravity="center"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/addBtn"
+            android:text="Add New Item"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/alt_background_color"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:gravity="end"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:onClick="addItems"/>
+        <ListView
+            android:id="@+id/list2"
+            android:layout_weight="2"
+            android:background="@color/alt_background_color"
+            android:cacheColorHint="#00000000"
+            android:soundEffectsEnabled="true"
+            android:dividerHeight="1px"
+            android:padding="0dip"
+            android:smoothScrollbar="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginBottom="5dip" />
+    </LinearLayout>
+</LinearLayout>
