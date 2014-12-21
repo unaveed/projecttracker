@@ -2,39 +2,103 @@ package edu.utah.cs4962.projecttracker.model;
 
 
 import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
-public class Project {
-    private UUID mId;
-    private ArrayList<Task> mTasks;
-    private Priority mPriority;
-    private boolean mCompleted;
-    private String mTitle;
-    private Date mDueDate;
-    private final static int HIGH_PRIORITY_COLOR = Color.rgb(255,0,0);
+public class Project implements Parcelable {
+    private ArrayList<SubTask> mTasks;
+    private HashMap<UUID, Integer> mSubTaskLookupMap;
+    private int mIndex;
+    private Priority        mPriority;
+    private boolean         mCompleted;
+    private String          mTitle;
+    private Date            mDueDate;
+    private final static int HIGH_PRIORITY_COLOR   = Color.rgb(255, 0, 0);
     private final static int MEDIUM_PRIORITY_COLOR = Color.rgb(255, 94, 0);
-    private final static int LOW_PRIORITY_COLOR = Color.rgb(51, 255, 51);
+    private final static int LOW_PRIORITY_COLOR    = Color.rgb(51, 255, 51);
 
     public enum Priority
     {
-       High, Medium, Low
+        High, Medium, Low
     }
 
     public Project()
     {
-        mId = UUID.randomUUID();
-        mTasks = new ArrayList<Task>();
+        mIndex = 0;
+        mTasks = new ArrayList<>();
+        mSubTaskLookupMap = new HashMap<>();
+        mCompleted = false;
+        mDueDate = null;
+    }
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeString(mTitle);
+        dest.writeString(mPriority.toString());
+        dest.writeValue(mDueDate);
+        dest.writeValue(mCompleted);
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("tasks", mTasks);
+        dest.writeBundle(bundle);
+        dest.writeInt(mIndex);
+    }
+
+    public static final Creator<Project> CREATOR = new Creator<Project>()
+    {
+        @Override
+        public Project createFromParcel(Parcel source)
+        {
+            String title = source.readString();
+            Priority priority = parsePriority(source.readString());
+            Date date = (Date) source.readValue(Project.class.getClassLoader());
+            boolean completed = (boolean) source.readValue(Project.class.getClassLoader());
+            Bundle bundle = source.readBundle(SubTask.class.getClassLoader());
+            ArrayList<SubTask> tasks = bundle.getParcelableArrayList("tasks");
+            int index = source.readInt();
+            Project project = new Project(title, priority, tasks, date, completed);
+            project.setIndex(index);
+            return project;
+        }
+
+        @Override
+        public Project[] newArray(int size)
+        {
+            return new Project[size];
+        }
+    };
+
+    public Project(Parcel in)
+    {
+        CREATOR.createFromParcel(in);
+    }
+
+    public Project(String title)
+    {
+        mTitle = title;
+        mTasks = new ArrayList<>();
+        mSubTaskLookupMap = new HashMap<>();
         mCompleted = false;
         mDueDate = null;
     }
 
     public Project(String title, Priority priority)
     {
-        mId = UUID.randomUUID();
-        mTasks = new ArrayList<Task>();
+        mTasks = new ArrayList<>();
+        mSubTaskLookupMap = new HashMap<>();
         mCompleted = false;
         mPriority = priority;
         mTitle = title;
@@ -43,17 +107,16 @@ public class Project {
 
     public Project(String title, Priority priority, Date dueDate)
     {
-        mId = UUID.randomUUID();
-        mTasks = new ArrayList<Task>();
+        mTasks = new ArrayList<>();
+        mSubTaskLookupMap = new HashMap<>();
         mCompleted = false;
         mPriority = priority;
         mTitle = title;
         mDueDate = dueDate;
     }
 
-    public Project(String title, Priority priority, ArrayList<Task> tasks)
+    public Project(String title, Priority priority, ArrayList<SubTask> tasks)
     {
-        mId = UUID.randomUUID();
         mTasks = tasks;
         mCompleted = false;
         mPriority = priority;
@@ -61,27 +124,23 @@ public class Project {
         mDueDate = null;
     }
 
-    public Project(String title, Priority priority, ArrayList<Task> tasks, Date dueDate)
+    public Project(String title, Priority priority, ArrayList<SubTask> tasks, Date dueDate, boolean completed)
     {
-        mId = UUID.randomUUID();
         mTasks = tasks;
-        mCompleted = false;
+        mCompleted = completed;
         mPriority = priority;
         mTitle = title;
         mDueDate = dueDate;
     }
 
-    public UUID getId()
+    public ArrayList<SubTask> getTasks()
     {
-        return mId;
-    }
-
-    public ArrayList<Task> getTasks() {
         return mTasks;
     }
 
     /** TODO: May not need this, possibly delete it **/
-    public void setTasks(ArrayList<Task> tasks) {
+    public void setTasks(ArrayList<SubTask> tasks)
+    {
         mTasks = tasks;
     }
 
@@ -109,9 +168,18 @@ public class Project {
         mTitle = title;
     }
 
-    public void addTask(Task task)
+    public void addTask(SubTask task)
     {
-        mTasks.add(task);
+        if(mSubTaskLookupMap.containsKey(task.getId()))
+        {
+            int index = mSubTaskLookupMap.get(task.getId());
+            mTasks.set(index, task);
+        }
+        else
+        {
+            mTasks.add(task);
+            mSubTaskLookupMap.put(task.getId(), mIndex++);
+        }
     }
 
     public Date getDueDate()
@@ -134,9 +202,88 @@ public class Project {
             return LOW_PRIORITY_COLOR;
     }
 
+    public static Priority parsePriority(String s)
+    {
+        if(s.equals(Priority.High.toString()))
+            return Priority.High;
+        else if (s.equals(Priority.Medium.toString()))
+            return Priority.Medium;
+        else
+            return Priority.Low;
+    }
+
+    public int getNumberOfTasks()
+    {
+        if(mTasks == null || mTasks.size() == 0)
+            return 0;
+
+        return mTasks.size();
+    }
+
     @Override
     public String toString()
     {
         return mTitle;
+    }
+
+    /**
+     * Get the task that's due earliest.
+     */
+    public SubTask getEarliestDueDate()
+    {
+        if(mTasks.size() == 0)
+            return null;
+
+        if(mTasks.size() == 1)
+        {
+            if(!mTasks.get(0).mProgress.equals(SubTask.Progress.Completed))
+                return mTasks.get(0);
+            else
+                return null;
+        }
+        Date earliestDate = mTasks.get(0).mDueDate;
+        int index = -1;
+        for(int i = 1; i < mTasks.size(); i++)
+        {
+            // Make sure you don't compare a completed sub-task
+            if(!mTasks.get(i).mProgress.equals(SubTask.Progress.Completed))
+            {
+                if(mTasks.get(i).mDueDate.before(earliestDate))
+                {
+                    earliestDate = mTasks.get(i).mDueDate;
+                    index = i;
+                }
+            }
+        }
+        return index > -1 ? mTasks.get(index) : null;
+    }
+
+    /**
+     * Determines whether the project is complete based on the status
+     * of the sub-tasks
+     */
+    public boolean isProjectComplete()
+    {
+        if(mTasks.size() > 0)
+        {
+            if(mTasks.size() == 1)
+            {
+                return mTasks.get(0).mProgress.equals(SubTask.Progress.Completed);
+            }
+
+            for (int i = 0; i < mTasks.size(); i++)
+            {
+                if(!mTasks.get(i).mProgress.equals(SubTask.Progress.Completed))
+                    return false;
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    private void setIndex(int i)
+    {
+        mIndex = i;
     }
 }

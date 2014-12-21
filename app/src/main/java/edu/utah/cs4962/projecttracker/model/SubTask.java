@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-public class Task {
+public class SubTask {
 
     private UUID mId;
     private String mTitle;
@@ -20,7 +20,7 @@ public class Task {
         TODO, InProgress, Completed
     }
 
-    public Task()
+    public SubTask()
     {
         mId = UUID.randomUUID();
     }
