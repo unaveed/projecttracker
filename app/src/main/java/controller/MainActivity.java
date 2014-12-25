@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,9 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Log.i("What the fuck", "Is this bullshit son?");
+
+                Intent intent = new Intent(getApplicationContext(), ProjectActivity.class);
                 intent.putExtra(MainActivity.TEXT_SERVICES_MANAGER_SERVICE,
                         mProjects.get(position).getTitle());
                 intent.putExtra("Project ID", position);
@@ -145,7 +148,7 @@ public class MainActivity extends Activity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, 0);
         String jsonProjectList = sharedPreferences.getString("jsonArray", "DEFAULT");
 
-        if(!jsonProjectList.equals("DEFAULT"))
+        if(!jsonProjectList.equals("DEFAULT") && jsonProjectList.length() > 2)
         {
             Gson gson = new Gson();
             Type typeCollection = new TypeToken<ArrayList<Project>>() {}.getType();
@@ -197,8 +200,7 @@ public class MainActivity extends Activity {
                         mProjects = new ArrayList<Project>();
 
                     // Add project to list and refresh the adapter.
-                    mProjects.add(new Project(title, priority));
-                    mProjectListAdapter.notifyDataSetChanged();
+                    mProjectListAdapter.add(new Project(title, priority));
                 }
             }
         }
@@ -276,10 +278,6 @@ public class MainActivity extends Activity {
         public ProjectListAdapter(Context context, ArrayList<Project> arr)
         {
             super(context, android.R.layout.simple_list_item_1, arr);
-        }
-
-        public void swapProject(ArrayList<Project> arr)
-        {
         }
 
         public View getView(final int position, View convertView, ViewGroup parent)

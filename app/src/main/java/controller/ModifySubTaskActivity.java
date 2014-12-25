@@ -9,24 +9,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import edu.utah.cs4962.projecttracker.R;
+import edu.utah.cs4962.projecttracker.model.LogTime;
 import edu.utah.cs4962.projecttracker.model.SubTask;
 
 
 public class ModifySubTaskActivity extends Activity
 {
+    LinearLayout mActivityFeed;
     EditText mTitle, mDescription, mLogTime;
     String mProgress;
     Spinner mSpinner;
@@ -131,6 +137,21 @@ public class ModifySubTaskActivity extends Activity
                 thread.start();
             }
         });
+
+        mActivityFeed = (LinearLayout) findViewById(R.id.activity_feed);
+        ArrayList<LogTime> logTimes = mSubTask.getLogTimes();
+        if(logTimes.size() > 0)
+        {
+            for(int i = 0; i < logTimes.size(); i++)
+            {
+                TextView textView = new TextView(this);
+                textView.setLayoutParams(new
+                        LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                textView.setText(logTimes.get(i).toString());
+                mActivityFeed.addView(textView);
+            }
+        }
     }
 
     @Override

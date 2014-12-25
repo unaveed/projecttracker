@@ -71,10 +71,24 @@
         android:id="@+id/modify_task_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_label"
+        android:layout_marginTop="16dp"
+        android:textSize="25sp"/>
+    <LinearLayout
+        android:id="@+id/activity_feed"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        </LinearLayout>
     <Button
         android:id="@+id/modify_task_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_gravity="center"
         android:text="@string/submit"/>
 </LinearLayout>

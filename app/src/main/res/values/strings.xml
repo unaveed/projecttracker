@@ -25,6 +25,7 @@
     <string name="log_time_hint">Log time in hours or fractions of hours</string>
     <string name="estimate_time_hint">Estimate task time in hours</string>
     <string name="update_progress_label">Update Progress</string>
+    <string name="activity_label">Activity Feed</string>
 
     <!-- String values for create-project spinner -->
     <string-array name="priority_list">

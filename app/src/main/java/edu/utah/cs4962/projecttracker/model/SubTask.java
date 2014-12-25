@@ -16,7 +16,7 @@ public class SubTask implements Parcelable
     private UUID mId;
     String mTitle, mDescription, mEstimatedTime;
     double mTime;
-    ArrayList<Double> mLogTimes = new ArrayList<Double>();
+    ArrayList<LogTime> mLogTimes = new ArrayList<LogTime>();
     Date mDueDate;
 
     @Override
@@ -127,7 +127,7 @@ public class SubTask implements Parcelable
     }
 
     public SubTask(String title, String description, String estTime, Date date,
-                   Progress progress, ArrayList<Double> times)
+                   Progress progress, ArrayList<LogTime> times)
     {
         mTitle = title;
         mDescription = description;
@@ -164,7 +164,12 @@ public class SubTask implements Parcelable
 
     public void addLogTime(double time)
     {
-        mLogTimes.add(time);
+        mLogTimes.add(new LogTime(time));
+    }
+
+    public ArrayList<LogTime> getLogTimes()
+    {
+        return mLogTimes;
     }
 
     public void setProgress(String progress)
